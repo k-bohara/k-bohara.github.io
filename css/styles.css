@@ -572,8 +572,11 @@ progress {
 .list-inline-item {
   display: inline-block;
 }
-.list-inline-item:not(:last-child) {
-  margin-right: 0.5rem;
+/* .list-inline-item:not(:last-child) {
+  margin-right: 1rem;
+} */
+.list-inline-item {
+  margin-right: 1rem;
 }
 
 .initialism {
@@ -3621,21 +3624,40 @@ textarea.form-control-lg {
 }
 
 .nav-link {
-  display: block;
+  display: inline-block;
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
   font-size: var(--bs-nav-link-font-size);
   font-weight: var(--bs-nav-link-font-weight);
   color: var(--bs-nav-link-color);
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  position: relative;
+  
 }
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
     transition: none;
   }
 }
+.nav-link::after{
+  content:'';
+  display:block;
+  position: absolute;
+  bottom:-.2rem;
+  left:50%;
+  transform: translateX(-50%);
+  width:0%;
+  border-bottom:.1rem solid var(--bs-navbar-active-color);
+  transition:width .3s linear;
+
+}
 .nav-link:hover, .nav-link:focus {
   color: var(--bs-nav-link-hover-color);
+ 
+}
+.nav-link:hover::after{
+  width:100%;
+  
 }
 .nav-link.disabled {
   color: var(--bs-nav-link-disabled-color);
@@ -3792,6 +3814,7 @@ textarea.form-control-lg {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  
 }
 .navbar-nav .show > .nav-link,
 .navbar-nav .nav-link.active {
@@ -3811,6 +3834,7 @@ textarea.form-control-lg {
 .navbar-text a:focus {
   color: var(--bs-navbar-active-color);
 }
+
 
 .navbar-collapse {
   flex-basis: 100%;
@@ -3997,6 +4021,10 @@ textarea.form-control-lg {
     flex-grow: 0;
     padding: 0;
     overflow-y: visible;
+  }
+  .nav-link:hover::after{
+    width:40%;
+    
   }
 }
 @media (min-width: 1200px) {
@@ -10862,9 +10890,11 @@ p.lead {
 
 .subheading {
   font-family: "Saira Extra Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  text-transform: uppercase;
   font-weight: 500;
   font-size: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap:1rem;
 }
 
 #sideNav {
@@ -10932,16 +10962,44 @@ p.lead {
   border-radius: 100%;
   font-size: 1.5rem;
   margin-right: 1.5rem;
+  transition: transform .5s ease-in-out;
 }
 .social-icons .social-icon:last-child {
   margin-right: 0;
 }
 .social-icons .social-icon:hover {
   background-color: #bd5d38;
+  transform: translateY(10px);
+  
+}
+/* Scroller */
+
+.scroller{
+  /* background-color: red; */
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.scroller::-webkit-scrollbar{
+  display: none;
 }
 
+
+
 .dev-icons {
+  display: inline-block;
   font-size: 3rem;
+  font-weight: 900;
+  white-space: nowrap;
+  animation:scroll 20s linear infinite;
+}
+@keyframes scroll{
+  from{
+    transform: translateX(0);
+  }
+  to{
+    transform: translateX(-100%);
+  }
 }
 
 section.resume-section {
@@ -10970,3 +11028,4 @@ section.resume-section .resume-section-content {
     padding-bottom: 5rem;
   }
 }
+
